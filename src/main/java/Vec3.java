@@ -66,11 +66,22 @@ public class Vec3 {
                 u.getZ() + c);
     }
 
+    public Vec3 add(double c) {
+        return add(this, c);
+    }
+
     public static Vec3 subtract(Vec3 u, Vec3 v) {
         return new Vec3(
                 u.getX() - v.getX(),
                 u.getY() - v.getY(),
                 u.getZ() - v.getZ());
+    }
+
+    public Vec3 subtract(Vec3 u) {
+        return new Vec3(
+                this.getX() - u.getX(),
+                this.getY() - u.getY(),
+                this.getZ() - u.getZ());
     }
 
     public static Vec3 subtract(Vec3 u, double c) {
@@ -81,11 +92,19 @@ public class Vec3 {
     }
 
     public static Vec3 negate(Vec3 u) {
-        return new Vec3(-u.getX(), -u.getY(), -u.getZ());
+        return multiply(u, -1.0);
+    }
+
+    public Vec3 negate() {
+        return negate(this);
     }
 
     public static Vec3 unitVector(Vec3 u) {
         return divide(u, length(u));
+    }
+
+    public Vec3 unitVector() {
+        return unitVector(this);
     }
 
     public static Vec3 multiply(Vec3 u, double c) {
@@ -126,5 +145,13 @@ public class Vec3 {
         return u.getX() * v.getX() +
                 u.getY() * v.getY() +
                 u.getZ() * v.getZ();
+    }
+
+    public static Vec3 sum(Vec3... vectors) {
+        Vec3 summed = new Vec3(0, 0, 0);
+        for (Vec3 v : vectors) {
+            summed = summed.add(v);
+        }
+        return summed;
     }
 }
